@@ -15,4 +15,5 @@ int main() {
 	}
 
 	printf("MAX=%d\n",max);
+	free(arr);
 }

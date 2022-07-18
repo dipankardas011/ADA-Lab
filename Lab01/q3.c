@@ -11,21 +11,29 @@ int main() {
 	for (int i=0;i<N;i++)
 		arr[i] = rand()%50;
 
-	int hashMap[51]={0};
+	for (int i=0;i <N;i++) {
+		for (int j=0; j<N-1-i;j++) {
+			if (arr[j] > arr[j+1]){
+				int temp = arr[j];
+				arr[j] = arr[j+1];
+				arr[j+1] = temp;
+			}
+		}
+	}
+
 	for (int i=0;i<N;i++)
 		printf("%d ",arr[i]);
 
 	printf("\n");
 
-
-	for (int i=0;i<N;i++)
-		hashMap[arr[i]]++;
-
-	for (int i=0;i<=50;i++) {
-		if (hashMap[i] > 1) {
-			printf("Duplicate(%d)\n",i);
+	for (int i=1;i<N;) {
+		char flag=0;
+		while (arr[i] == arr[i-1]){
+			if (flag == 0)
+				printf("(%d)\n",arr[i]);
+			flag = 1;
+			i++;
 		}
+		i++;
 	}
-
-
 }
