@@ -5,7 +5,7 @@
 int main() {
 
 	int arr[N]={0};
-	scanf("Enter the inp..\n");
+	printf("Enter the inp..\n");
 	for (int i=0;i<N;i++)
 		scanf("%d",&arr[i]);
 
