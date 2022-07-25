@@ -23,7 +23,7 @@ void bubbleSortAsc(int a[N]) {
       }
     }
   }
-  printf("Enter the no of swaps in ascending: %d\n", counter);
+  printf("no of swaps in ascending: %d\n", counter);
 }
 
 void bubbleSortDes(int a[N]) {
@@ -37,7 +37,7 @@ void bubbleSortDes(int a[N]) {
       }
     }
   }
-  printf("Enter the no of swaps in descending: %d\n", counter);
+  printf("no of swaps in descending: %d\n", counter);
 }
 
 int main(int argc, char **argv) {
