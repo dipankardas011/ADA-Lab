@@ -8,3 +8,5 @@
 a->b , b->c, c->a
 
 using swap(x, y)
+
+3. bubble sort and find the number of swaps in case of ascending and descending

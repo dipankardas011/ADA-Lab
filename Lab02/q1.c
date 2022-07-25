@@ -33,7 +33,7 @@ void task2(int** A, int N) {
     for (int j = 0; j < N;j++)
       if (i <= j)
         task2 += A[i][i];
-  printf("Sum of elements of Main diag: %d\n", task2);
+  printf("Sum of elements of above main diag: %d\n", task2);
 }
 
 void task1(int** A, int N) {
