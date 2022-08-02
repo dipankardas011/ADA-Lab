@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define N 100
+#define N 100000
 
 int isPrimeUtil(int n, int i) {
   if (i == n)
@@ -21,15 +21,21 @@ int isPrime(int x) {
 
 int main(int argc, char **argv) {
   clock_t begin = clock();
-  for (int i = 0; i < N; i++) {
-    if (isPrime(i)) {
-      printf("%d ", i);
+  for (int avg = 0; avg < 100; avg++) {
+
+    for (int i = 0; i < N; i++)
+    {
+      if (isPrime(i))
+      {
+        // printf("%d ", i);
+        printf("");
+      }
     }
   }
   clock_t end = clock();
   printf("\n");
-  double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-  printf("%f\n", time_spent);
+  double time_spent = (double)(end - begin) / (CLOCKS_PER_SEC*100.0);
+  printf("Avg time of 100 times : %f\n", time_spent);
   remove(argv[0]);
   return EXIT_SUCCESS;
 }
