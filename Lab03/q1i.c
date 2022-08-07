@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define N 100000
+#define N 50000
 
 int isPrimeUtil(int n, int i) {
   if (i == n)
@@ -14,7 +14,7 @@ int isPrimeUtil(int n, int i) {
 }
 
 int isPrime(int x) {
-  if (x == 1)
+  if (x <= 1)
     return 0;
   return isPrimeUtil(x, 2);
 }

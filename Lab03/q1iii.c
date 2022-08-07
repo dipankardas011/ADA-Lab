@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <time.h>
 
-#define N 100000
+#define N 1000000
 
 void isPrime(int n)
 {
