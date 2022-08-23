@@ -13,7 +13,7 @@ void merger(int* arr, int left, int mid ,int right) {
     counter++;
     if (arr[i] < arr[j])
       temp[k++] = arr[i++];
-    else if (arr[left] > arr[right])
+    else if (arr[i] > arr[j])
       temp[k++] = arr[j++];
     else {
       temp[k++] = arr[i++];

@@ -2,12 +2,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-void display(int *arr, int l, int r) {
-  while (l <= r)
-    printf("%d ",arr[l++]);
-  printf("\n\n");
-}
-
 static size_t counter = 0;
 
 
@@ -22,7 +16,7 @@ void merger(int* arr, int left, int mid ,int right) {
 
     if (arr[i] < arr[j])
       temp[k++] = arr[i++];
-    else if (arr[left] > arr[right])
+    else if (arr[i] > arr[j])
       temp[k++] = arr[j++];
     else {
       temp[k++] = arr[i++];

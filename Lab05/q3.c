@@ -2,11 +2,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-void display(int *arr, int l, int r) {
-  while (l <= r)
-    printf("%d ", arr[l++]);
-  printf("\n\n");
-}
 
 static size_t counter = 0;
 
