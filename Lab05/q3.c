@@ -8,12 +8,16 @@ void display(int *arr, int l, int r) {
   printf("\n\n");
 }
 
+static size_t counter = 0;
+
+
 void merger(int *arr, int left, int mid, int right) {
   int i = left;
   int j = mid + 1;
   int k = 0;
   int *temp = (int *)malloc(sizeof(int) * (right - left + 1));
   while (i <= mid && j <= right) {
+    counter++;
     if (arr[i] < arr[j])
       temp[k++] = arr[i++];
     else if (arr[i] > arr[j])
@@ -24,14 +28,20 @@ void merger(int *arr, int left, int mid, int right) {
     }
   }
 
-  while (i <= mid)
+  while (i <= mid) {
+    counter++;
     temp[k++] = arr[i++];
+  }
 
-  while (j <= right)
+  while (j <= right) {
+    counter++;
     temp[k++] = arr[j++];
+  }
 
-  for (int i = 0; i < (right - left + 1); i++)
+  for (int i = 0; i < (right - left + 1); i++) {
+    counter++;
     arr[i + left] = temp[i];
+  }
 
   free(temp);
 }
@@ -40,7 +50,7 @@ void insertionSort(int *arr, int l, int r) {
   for (int i = l + 1; i <= r; i++) {
     int j = i - 1;
     int ele = arr[i];
-    while (arr[j] > ele && j >= 0) {
+    while (++counter && arr[j] > ele && j >= 0) {
       arr[j + 1] = arr[j];
       j--;
     }
@@ -49,7 +59,7 @@ void insertionSort(int *arr, int l, int r) {
 }
 
 void mergeSort(int *arr, int left, int right) {
-  if (right - left + 1 <= 4)
+  if (right - left + 1 <= 20)
     insertionSort(arr, left, right);
   else if (left < right) {
     int mid = left + ((right - left) >> 1);
@@ -59,15 +69,22 @@ void mergeSort(int *arr, int left, int right) {
   }
 }
 
+void executor(int N) {
+  int arr[N];
+  for (int i = 0;i < N;i++)
+    arr[i] = rand();
+  mergeSort(arr, 0, N-1);
+  printf("SOrted the array of [%d] elements in STEPS: %ld\n", N, counter);
+  counter = 0;
+}
+
 int main(int argc, char **argv) {
   srand(time(0));
-  int arr[] = {5, 4, 3, 2, 1, 234, 235, 134};
-  int size = sizeof(arr) / sizeof(int);
-  mergeSort(arr, 0, size - 1);
-
-  printf("--[RES]--\n");
-  for (int i = 0; i < size; i++)
-    printf("%d ", arr[i]);
+  executor(100);
+  executor(1000);
+  executor(10000);
+  executor(100000);
+  executor(1000000);
 
   remove(argv[0]);
   return EXIT_SUCCESS;
