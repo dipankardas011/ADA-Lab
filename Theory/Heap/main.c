@@ -5,6 +5,8 @@
 // current heap elemtns
 int HEAP_SIZE = 4 + 1;
 
+#define ERR -0x3E7
+
 struct heapElement {
   int* arrPtr;
   int index;
@@ -15,6 +17,12 @@ struct Payload {
   int *arr;
   int size;
 };
+
+void display(struct heapElement *heap) {
+  for (int i = 1; i < HEAP_SIZE; i++) {
+    printf("[%d]-> idx: %d\tfirstElement: %d\tsize: %d\n",i , heap[i].index, heap[i].arrPtr[0], heap[i].size);
+  }
+}
 
 
 /**
@@ -38,17 +46,25 @@ void heapify(struct heapElement* heap, int idx) {
   int l = 2*idx;
   int r = 2*idx + 1;
   int smallest = idx;
-  if (heap[l].arrPtr[heap[l].index] < heap[smallest].arrPtr[heap[smallest].index]) {
+  if (l < HEAP_SIZE &&
+      heap[l].index < heap[l].size &&
+      heap[smallest].index < heap[smallest].size &&
+      heap[l].arrPtr[heap[l].index] < heap[smallest].arrPtr[heap[smallest].index])
     smallest = l;
-  }
-  if (heap[l].arrPtr[heap[r].index] < heap[smallest].arrPtr[heap[smallest].index]) {
+
+  if (r < HEAP_SIZE &&
+      heap[r].index < heap[r].size &&
+      heap[smallest].index < heap[smallest].size &&
+      heap[r].arrPtr[heap[r].index] < heap[smallest].arrPtr[heap[smallest].index]) {
     smallest = r;
   }
 
   if (smallest == idx)
     return;
 
+  struct heapElement temp = heap[idx];
   heap[idx] = heap[smallest];
+  heap[smallest] = temp;
   heapify(heap, smallest);
 }
 
@@ -60,11 +76,60 @@ struct heapElement *build_heap(struct heapElement *heap) {
   return heap;
 }
 
+struct heapElement *deleteNodeFromHeap(struct heapElement *heap){
+
+  // first swap first with the last element
+  // then decrese the HEAP_SIZE
+  // call heapify again
+
+  heap[1] = heap[HEAP_SIZE-1];
+  HEAP_SIZE--;
+  heapify(heap, 1);
+  return heap;
+}
+
+struct heapElement* IncrementIdxFirstArray(struct heapElement *heap) {
+  heap[1].index += 1;
+  if (heap[1].index == heap[1].size) {
+    return deleteNodeFromHeap(heap);
+  } else {
+    return heap;
+  }
+}
+
+int peekFromHeap(struct heapElement *heap) {
+  if (HEAP_SIZE >= 1) {
+    return heap[1].arrPtr[heap[1].index];
+  } else {
+    return ERR;
+  }
+}
+
+
+
+void mergeSortUsingHeap(struct heapElement *heap) {
+  int resSize = 0;
+  for (int i = 0; i < HEAP_SIZE; i++) {
+    resSize += heap[i].size;
+  }
+  int* resArray = (int*)malloc(sizeof(int) * resSize);
+  int resIdx = 0;
+  while (HEAP_SIZE > 1) {
+    resArray[resIdx++] = peekFromHeap(heap);
+    heap = IncrementIdxFirstArray(heap);
+    heapify(heap, 1);
+  }
+  printf("[");
+  for (int i=0;i<resSize; i++)
+    printf(" %d", resArray[i]);
+  printf(" ]\n");
+}
+
 
 int main(int argc, char **argv) {
   struct heapElement* HeapArray = (struct heapElement*) malloc(sizeof(struct heapElement) * HEAP_ARR_SIZE);
 
-  int arr1[] = {3,4,6,2,63,123};
+  int arr1[] = {2,3,4,6,63,124};
   int arr2[] = {1,23,43};
   int arr3[] = {-13,14,423,32323};
   int arr4[] = {123,141};
@@ -91,7 +156,9 @@ int main(int argc, char **argv) {
 
   HeapArray = initHeap(HeapArray, payload);
 
+
   HeapArray = build_heap(HeapArray);
+  mergeSortUsingHeap(HeapArray);
 
   remove(argv[0]);
   return EXIT_SUCCESS;
