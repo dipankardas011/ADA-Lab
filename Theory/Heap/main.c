@@ -105,7 +105,19 @@ int peekFromHeap(struct heapElement *heap) {
   }
 }
 
-
+struct heapElement *addToHeap(struct heapElement *heap, int* newArr, int size) {
+  // it will add based on newArr[0]
+  HEAP_SIZE += 1;
+  int i = HEAP_SIZE-1;
+  while ( i > 1 && newArr[0] > heap[i/2].arrPtr[heap[i/2].index] ) {
+    heap[i].arrPtr[heap[i].index] = heap[i/2].arrPtr[heap[i/2].index];
+    i /= 2;
+  }
+  heap[i].arrPtr = newArr;
+  heap[i].index = 0;
+  heap[i].size = size;
+  return heap;
+}
 
 void mergeSortUsingHeap(struct heapElement *heap) {
   int resSize = 0;
@@ -155,7 +167,10 @@ int main(int argc, char **argv) {
   };
 
   HeapArray = initHeap(HeapArray, payload);
+  int newArr[] = {-9, -8, -7};
+  HeapArray = addToHeap(HeapArray, newArr, sizeof(newArr) / sizeof(int));
 
+  display(HeapArray);
 
   HeapArray = build_heap(HeapArray);
   mergeSortUsingHeap(HeapArray);
