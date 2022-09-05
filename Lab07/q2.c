@@ -1,12 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#define SIZE 100
 
-int counter= 0 ;
+int counter = 0;
 
 int partition(int *arr, int left, int right) {
   int low = left-1;
   int high = right+1;
+
   int parition = arr[left];
 
   while (1) {
@@ -22,32 +24,39 @@ int partition(int *arr, int left, int right) {
   }
 }
 
+void insertionSort(int *arr, int l, int r) {
+  for (int i = l + 1; i <= r; i++) {
+    int j = i - 1;
+    int ele = arr[i];
+    while (++counter && arr[j] > ele && j >= 0) {
+      arr[j + 1] = arr[j];
+      j--;
+    }
+    arr[j + 1] = ele;
+  }
+}
+
 
 void quickSort(int* arr, int left, int right) {
-  if (left < right) {
+
+  if (right - left + 1 <= SIZE/4)
+    insertionSort(arr, left, right);
+  else if (left < right) {
     int part = partition(arr, left, right);
     quickSort(arr, left, part);
     quickSort(arr, part+1, right);
   }
 }
 
-
-void executor(int N) {
-  srand(time(0));
-  int arr[N];
-  for (int i = 0;i < N;i++)
-    arr[i] = rand();
-  quickSort(arr,0, N-1);
-  printf("Comparison of inp: %d\ttook: %d\n", N, counter);
-  counter = 0;
-}
-
 int main(int argc, char **argv) {
-  executor(100);
-  executor(1000);
-  executor(10000);
-  executor(100000);
-  executor(1000000);
+  int arr[SIZE];
+  srand(time(0));
+  for (int i = 0; i < SIZE; i++)
+    arr[i] = rand()%500;
+  int n = sizeof(arr)/sizeof(int);
+  quickSort(arr, 0,n-1);
+  printf(",%d\n", counter);
+  counter = 0;
   remove(argv[0]);
   return EXIT_SUCCESS;
 }

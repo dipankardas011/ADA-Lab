@@ -1,12 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+int counter = 0;
 
-int counter= 0 ;
+int RandomeIdx(int left, int right) {
+  return rand() % (right - left) + left;
+}
 
 int partition(int *arr, int left, int right) {
   int low = left-1;
   int high = right+1;
+
+  int getRandIdx = RandomeIdx(left, right);
+
+  int t = arr[left];
+  arr[left] = arr[getRandIdx];
+  arr[getRandIdx] = t;
+
   int parition = arr[left];
 
   while (1) {
@@ -30,7 +40,6 @@ void quickSort(int* arr, int left, int right) {
     quickSort(arr, part+1, right);
   }
 }
-
 
 void executor(int N) {
   srand(time(0));
