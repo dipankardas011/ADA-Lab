@@ -26,7 +26,7 @@ void heapify(int *arr, int index) {
 }
 
 void buildHeap(int* arr) {
-  for (int i = size-1; i >= 1; i--) {
+  for (int i = size/2; i >= 1; i--) {
     heapify(arr, i);
   }
 }
