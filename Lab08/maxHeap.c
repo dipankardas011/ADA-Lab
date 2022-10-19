@@ -6,22 +6,22 @@
 int size = 0;
 
 void heapify(int *arr, int index) {
-  int smallest = index;
+  int largest = index;
   int leftChild = 2*index;
   int rightChild = 2*index + 1;
-  if (leftChild < size && arr[smallest] > arr[leftChild]){
-    smallest = leftChild;
+  if (leftChild < size && arr[largest] < arr[leftChild]){
+    largest = leftChild;
   }
 
-  if (rightChild < size && arr[smallest] > arr[rightChild]){
-    smallest = rightChild;
+  if (rightChild < size && arr[largest] < arr[rightChild]){
+    largest = rightChild;
   }
 
-  if (smallest != index){
-    int t = arr[smallest];
-    arr[smallest] = arr[index];
+  if (largest != index){
+    int t = arr[largest];
+    arr[largest] = arr[index];
     arr[index] = t;
-    heapify(arr, smallest);
+    heapify(arr, largest);
   }
 }
 
