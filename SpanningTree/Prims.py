@@ -17,8 +17,8 @@ from cmath import inf
 #     """
 #     return
 
-
-
+global MAX
+MAX = (1 << 32) - 1
 
 def isEdgePresent(graph: list[list[int]], start: int, end: int)-> bool:
   return graph[start][end] != -1
@@ -32,14 +32,14 @@ def DisplayGraph(graph: list[list[int]])-> None:
 
 
 
-def Prims(graph: list[list[int]], vertex: int)-> None:
+def Prims(graph: list[list[int]], vertex: int)-> list[int]:
   """
   Graph is 0 based vertex indexing
   vertex is 1 based
   """
 
   startVertex = vertex - 1
-  dist: list[int] = [inf for _ in range(len(graph))]
+  dist: list[int] = [MAX for _ in range(len(graph))]
   predecessor: list[int] = [-1 for _ in range(len(graph))]
   isVisited: list[bool] = [False for _ in range(len(graph))]
 
@@ -53,16 +53,11 @@ def Prims(graph: list[list[int]], vertex: int)-> None:
     noOfLeftVertex -= 1
     isVisited[minVertexIdx] = True
     for adjVertex,_ in enumerate(graph[minVertexIdx]):
-      if isEdgePresent(graph, minVertexIdx, adjVertex) and not isVisited[adjVertex]:
+      if isEdgePresent(graph, minVertexIdx, adjVertex) and not isVisited[adjVertex] and dist[adjVertex] > graph[minVertexIdx][adjVertex]:
         dist[adjVertex] = graph[minVertexIdx][adjVertex]
         predecessor[adjVertex] = minVertexIdx
 
-  for vertex, parent in enumerate(predecessor):
-    if parent != -1:
-      print(f"{vertex+1}\t{parent+1}")
-    else:
-      print(f"{vertex+1}\t{parent}")
-
+  return predecessor
 
 
 def getIndexOfMin(distArr: list[int], visited: list[bool])-> int:
@@ -98,7 +93,12 @@ if __name__ == '__main__':
     [-1, -1, 10, -1, 30, -1, -1],
     [-1, 25, 20, 30, -1, -1, 10],
     [35, 10, 15, -1, -1, -1, 15],
-    [7, 45, 20, -1, -1, 10, 15, -1]
+    [45, 45, 20, -1, -1, 10, 15, -1]
   ]
-  DisplayGraph(G)
-  Prims(G, 4)
+  # DisplayGraph(G)
+  MinSpanningTree = Prims(G, 4)
+  for vertex, parent in enumerate(MinSpanningTree):
+    if parent != -1:
+      print(f"{vertex+1}\t{parent+1}")
+    else:
+      print(f"{vertex+1}\t{parent}")

@@ -3,5 +3,6 @@
     "compare": "c",
     "*.tcc": "c",
     "type_traits": "c"
-  }
+  },
+  "python.analysis.typeCheckingMode": "basic"
 }
