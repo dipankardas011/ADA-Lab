@@ -64,7 +64,7 @@ def getIndexOfMin(distArr: list[int], visited: list[bool])-> int:
   """
   Returns the index where min is there
   """
-  min = distArr[0]
+  min = MAX
   retIdx = 0
   for idx, distance in enumerate(distArr):
     if not visited[idx] and distance < min:
