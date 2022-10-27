@@ -1,0 +1,26 @@
+bool isMajor(arr):
+  //arr is []int
+  sort(arr)
+
+  curr <- 1
+  count <- 1
+  maxItem <- arr[0]
+  for i ∊ (1, .., arr.length):
+    if arr[curr] == maxItem:
+      count <- count+1
+    else:
+      count <- count-1
+
+    if count == 0:
+      maxItem = arr[curr]
+      count <- 1
+
+  count <- 0
+  for {ele | ele ∊ arr}:
+    if ele == maxItem:
+      count <- count+1
+
+  if count > arr.length /2:
+    return true
+  else
+    return false
