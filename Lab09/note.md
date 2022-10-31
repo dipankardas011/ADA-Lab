@@ -1,0 +1,3 @@
+- [x] Activity selection
+- [x] Knapsack fractions
+- [x] Huffman

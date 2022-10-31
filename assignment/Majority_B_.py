@@ -28,6 +28,6 @@ def isMajority(ar: list[int])-> bool:
     else:
         return False
 
-#arr = [3,6,6,1,3,3,3,6,6,6,6]  -> True
+arr = [3,6,6,1,3,3,3,6,6,6,6]
 #arr = [1,3,6,6,1,3,3,3,6,6,6,6] -> False
 print(isMajority(arr))
